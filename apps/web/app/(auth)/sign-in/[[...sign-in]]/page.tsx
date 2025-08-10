@@ -1,7 +1,7 @@
-import { SignIn } from "@clerk/nextjs";
+import SignInView from "@/modules/auth/ui/views/sign-in-view";
 
 const SignUpPage = () => {
-  return <SignIn />;
+  return <SignInView />;
 };
 
 export default SignUpPage;
