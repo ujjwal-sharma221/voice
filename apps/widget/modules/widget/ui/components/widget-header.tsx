@@ -10,8 +10,8 @@ export function WidgetHeader({
   return (
     <header
       className={cn(
-        "bg-gradient-to-r from-[#374151] via-[#f43f5e] to-[#fb923c] text-primary-foreground p-4",
-        className
+        "bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r text-primary-foreground p-4",
+        className,
       )}
     >
       {children}

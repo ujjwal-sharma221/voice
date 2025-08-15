@@ -22,7 +22,7 @@ export const create = mutation({
         cookieEnabled: v.optional(v.boolean()),
         referer: v.optional(v.string()),
         currentUrl: v.optional(v.string()),
-      })
+      }),
     ),
   },
 
@@ -39,5 +39,24 @@ export const create = mutation({
     });
 
     return contactSessionId;
+  },
+});
+
+export const validate = mutation({
+  args: {
+    contactSessionId: v.id("contactSession"),
+  },
+  handler: async (ctx, args) => {
+    const contactSession = await ctx.db.get(args.contactSessionId);
+
+    if (!contactSession) {
+      return { valid: false, cause: "Contact session not found" };
+    }
+
+    if (contactSession.expiresAt < Date.now()) {
+      return { valid: false, cause: "Contact session expired" };
+    }
+
+    return { valid: true, contactSession };
   },
 });
