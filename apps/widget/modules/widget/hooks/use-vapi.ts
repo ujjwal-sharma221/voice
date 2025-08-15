@@ -16,35 +16,35 @@ export const useVapi = () => {
   const [transcript, setTranscript] = useState<TranscriptMessage[]>([]);
 
   useEffect(() => {
-    const vapiInstace = new Vapi(process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY!);
-    setVapi(vapiInstace);
+    const vapiInstance = new Vapi(process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY!);
+    setVapi(vapiInstance);
 
-    vapiInstace.on("call-start", () => {
+    vapiInstance.on("call-start", () => {
       setIsConnected(true);
       setIsConnecting(false);
       setTranscript([]);
     });
 
-    vapiInstace.on("call-end", () => {
+    vapiInstance.on("call-end", () => {
       setIsConnected(false);
       setIsConnecting(false);
       setIsSpeaking(false);
     });
 
-    vapiInstace.on("speech-start", () => {
+    vapiInstance.on("speech-start", () => {
       setIsSpeaking(true);
     });
 
-    vapiInstace.on("speech-end", () => {
+    vapiInstance.on("speech-end", () => {
       setIsSpeaking(false);
     });
 
-    vapiInstace.on("error", (error) => {
+    vapiInstance.on("error", (error) => {
       setIsConnecting(false);
       console.error("ERROR_IN_VAPI_INSTANCE", error);
     });
 
-    vapiInstace.on("message", (message) => {
+    vapiInstance.on("message", (message) => {
       if (message.type === "transcript" && message.transcriptType === "final") {
         setTranscript((prev) => [
           ...prev,
@@ -57,7 +57,7 @@ export const useVapi = () => {
     });
 
     return () => {
-      vapiInstace.stop();
+      vapiInstance.stop();
     };
   }, []);
 
