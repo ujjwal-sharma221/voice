@@ -32,7 +32,7 @@ type FormValues = z.infer<typeof formSchema>;
 export function WidgetAuthScreen() {
   const organizationId = useAtomValue(organizationIdAtom);
   const setContactSessionId = useSetAtom(
-    contactSessionIdAtomFamily(organizationId as string),
+    contactSessionIdAtomFamily(organizationId as string)
   );
 
   const form = useForm<FormValues>({

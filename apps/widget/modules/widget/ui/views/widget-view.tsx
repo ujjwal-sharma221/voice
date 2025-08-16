@@ -4,8 +4,10 @@ import { useAtomValue } from "jotai";
 
 import { screenAtom } from "../../atoms/widget-atoms";
 import { WidgetAuthScreen } from "../screens/widget-auth-screen";
+import { WidgetChatScreen } from "../screens/widget-chat-screen";
 import { WidgetErrorScreen } from "../screens/widget-error-screen";
 import { WidgetLoadingScreen } from "../screens/widget-loading-screen";
+import { WidgetSelectionScreen } from "../screens/widget-selection-screen";
 
 interface WidgetViewProps {
   organizationId: string | null;
@@ -20,8 +22,8 @@ export function WidgetView({ organizationId }: WidgetViewProps) {
     auth: <WidgetAuthScreen />,
     voice: <p>TODO:voice</p>,
     inbox: <p>TODO:inbox</p>,
-    selection: <p>TODO:selections</p>,
-    chat: <p>TODO:chat</p>,
+    selection: <WidgetSelectionScreen />,
+    chat: <WidgetChatScreen />,
     contact: <p>TODO:contact</p>,
   };
 
