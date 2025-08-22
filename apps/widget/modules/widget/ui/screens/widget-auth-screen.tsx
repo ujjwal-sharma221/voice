@@ -5,6 +5,7 @@ import { useSetAtom, useAtomValue } from "jotai";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
+  screenAtom,
   organizationIdAtom,
   contactSessionIdAtomFamily,
 } from "../../atoms/widget-atoms";
@@ -32,8 +33,10 @@ type FormValues = z.infer<typeof formSchema>;
 export function WidgetAuthScreen() {
   const organizationId = useAtomValue(organizationIdAtom);
   const setContactSessionId = useSetAtom(
-    contactSessionIdAtomFamily(organizationId as string)
+    contactSessionIdAtomFamily(organizationId as string),
   );
+
+  const setScreen = useSetAtom(screenAtom);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -68,6 +71,7 @@ export function WidgetAuthScreen() {
     });
 
     setContactSessionId(contactSessionId);
+    setScreen("selection");
   };
 
   return (

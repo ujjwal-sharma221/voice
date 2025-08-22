@@ -7,6 +7,8 @@ import { useAction, useQuery } from "convex/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeftIcon, MenuIcon } from "lucide-react";
 import { toUIMessages, useThreadMessages } from "@convex-dev/agent/react";
+import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
+import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-trigger";
 
 import {
   screenAtom,
@@ -39,7 +41,7 @@ import { Button } from "@workspace/ui/components/button";
 import { WidgetHeader } from "../components/widget-header";
 import { Form, FormField } from "@workspace/ui/components/form";
 import { AIResponse } from "@workspace/ui/components/ai/response";
-import { fi } from "zod/v4/locales";
+import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
 
 const formSchema = z.object({
   message: z.string().min(1, "Message is required"),
@@ -104,6 +106,13 @@ export function WidgetChatScreen() {
     });
   };
 
+  const { topRefElement, handleLoadMore, canLoadMore, isLoadingMore } =
+    useInfiniteScroll({
+      status: messages.status,
+      loadMore: messages.loadMore,
+      loadSize: 10,
+    });
+
   return (
     <>
       <WidgetHeader className="flex items-center justify-between">
@@ -122,6 +131,12 @@ export function WidgetChatScreen() {
 
       <AIConversation>
         <AIConversationContent>
+          <InfiniteScrollTrigger
+            canLoadMore={canLoadMore}
+            isLoadingMore={isLoadingMore}
+            onLoadMore={handleLoadMore}
+            ref={topRefElement}
+          />
           {toUIMessages(messages.results ?? [])?.map((message) => {
             return (
               <AIMessage
@@ -131,6 +146,13 @@ export function WidgetChatScreen() {
                 <AIMessageContent>
                   <AIResponse>{message.content}</AIResponse>
                 </AIMessageContent>
+                {message.role === "assistant" && (
+                  <DicebearAvatar
+                    badgeImageUrl="/logo.svg"
+                    seed="assistant"
+                    size={32}
+                  />
+                )}
               </AIMessage>
             );
           })}
