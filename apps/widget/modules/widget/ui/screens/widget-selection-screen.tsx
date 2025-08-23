@@ -15,6 +15,7 @@ import {
 import { api } from "@workspace/backend/_generated/api";
 import { Button } from "@workspace/ui/components/button";
 import { WidgetHeader } from "../components/widget-header";
+import { WidgetFooter } from "../components/widget-footer";
 import VerticalCutReveal from "@workspace/ui/components/vertical-cut-reveal";
 
 export function WidgetSelectionScreen() {
@@ -111,6 +112,8 @@ export function WidgetSelectionScreen() {
           <ChevronRightIcon />
         </Button>
       </div>
+
+      <WidgetFooter />
     </>
   );
 }

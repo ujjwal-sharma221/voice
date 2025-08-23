@@ -56,7 +56,7 @@ export function WidgetChatScreen() {
   const conversationId = useAtomValue(conversationIdAtom);
   const organizationId = useAtomValue(organizationIdAtom);
   const contactSessionId = useAtomValue(
-    contactSessionIdAtomFamily(organizationId ?? ""),
+    contactSessionIdAtomFamily(organizationId ?? "")
   );
 
   const conversation = useQuery(
@@ -66,7 +66,7 @@ export function WidgetChatScreen() {
           contactSessionId,
           conversationId,
         }
-      : "skip",
+      : "skip"
   );
 
   const handleNavigateBack = () => {
@@ -82,7 +82,7 @@ export function WidgetChatScreen() {
           contactSessionId,
         }
       : "skip",
-    { initialNumItems: 10 },
+    { initialNumItems: 10 }
   );
 
   const form = useForm<FormValues>({
